@@ -221,7 +221,7 @@ void buyProduct() {
     printf("\n\t--------------------------------------------------------------------------------\n");
     if(y == 1){
         printf("\t SGST:(@%f Perct.)%55f", sgst, amt * (sgst/100));
-        printf("\n\t CGST:(@%f Perct.)%55f", cgst, amt * (sgst/100));
+        printf("\n\t CGST:(@%f Perct.)%55f", cgst, amt * (cgst/100));
         printf("\n\t TOTAL PAYBLE AMOUNT:%59f", total = total + (total * (tgst/100)));
     } else {
         printf("\n\t IGST:(@%f Perct.)%55f", igst, amt * (igst/100));
