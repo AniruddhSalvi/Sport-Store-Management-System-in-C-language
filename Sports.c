@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include<string.h>
+//Function declaration
 void deleteProduct();
 void buyProduct();
+//Structure definition
 struct Sports{
     char name[200];
     int a,b,qty;
@@ -23,22 +25,22 @@ void main(){
     printf("\n\n");
 
     switch(n) {
-    exit:   case 0: printf("\n\t\t---------<><><><> Thanks Visit Again...! <><><><>---------\n\n");
+    exit:   case 0: printf("\n\t\t ---------<><><><> Thanks Visit Again...! <><><><>---------\n\n");
                     break;
-            case 1: fptr = fopen("product.txt", "r");
-                    ch = fgetc(fptr);
+            case 1: fptr = fopen("product.txt", "r"); //File opening
+                    ch = fgetc(fptr); //creating a variable ch to take values character by character from the file
                     int d;
-                    while(ch!= EOF) {
+                    while(ch!= EOF) { //taking character till EOF(END OF FILE) and printing them on Terminal character by character
                         printf("%c", ch);
-                        ch = fgetc(fptr);
+                        ch = fgetc(fptr); //after printing 1 character, taking nxt character by fgetc
                     }
                     printf("\n");
-                    fclose(fptr);
+                    fclose(fptr); //File closing
 
                     printf("\n\tEnter (2-4) to Add, Delete or Buy another products: ");
                     scanf("%d", &d);
                     if(d == 2){
-                        goto add;
+                        goto add; //goto to jump from one block to another
                     } else if(d == 3) {
                         goto del;
                     } else if(d == 4) {
@@ -51,7 +53,7 @@ void main(){
                     //int a, b, c;
                     //char name[200];
                     int c;
-                    struct Sports s1[100];
+                    struct Sports s1[100]; //Structure Array declared to take values for input in file from user
                     printf("\n\t-----<><><> Add Products <><><>-----");
                     printf("\n\tEnter the Sr. No. of product: ");
                     scanf("%d%*c", &s1[0].a); //or use getchar() after scanf("%d",&a);
@@ -116,7 +118,7 @@ void main(){
   
 }
 void deleteProduct() {
-    int lno, ctr = 0;
+    int lno, ctr = 0; //here ctr is the iterator which will go throught from 1st line till end and whenever it get equal to LINE NO.(lno) it will just skip that line
     char ch;
     FILE *fptr1, *fptr2;
     char fname[200];
@@ -146,7 +148,7 @@ void deleteProduct() {
         {
             strcpy(str, "\0");
             fgets(str, 200, fptr1);
-            if (!feof(fptr1)) 
+            if (!feof(fptr1)) //feof() return true if EOF is reached or else returns false
             {
                 ctr++;
                 /* skip the line at given line number */
@@ -173,7 +175,7 @@ void deleteProduct() {
 }
 
 void buyProduct() {
-    struct Sports s[100];
+    struct Sports s[100]; //Structure Array is declared to take values of products which customer have bought for billing
     int i = 0, c = 1, x, amt;
     int y;
     float total = 0, sgst, cgst, igst, tgst;
@@ -184,7 +186,7 @@ void buyProduct() {
         scanf("%f",&sgst);
         printf("Enter the current CGST: ");
         scanf("%f",&cgst);
-        printf("Total GST: %f",tgst = sgst + cgst);
+        printf("Total GST: %0.2f",tgst = sgst + cgst);
     } else {
         igst = 18;
     }
@@ -207,24 +209,25 @@ void buyProduct() {
             c++;
         }
     } while(x == 1);
+
     printf("\n\t================================================================================");
     printf("\n\n\t\t\t\t\tB I L L I N G");
     printf("\n\n\t================================================================================");
     printf("\n\t%-20s%-20s%-10s%-21s%s"," Item No.","Items","Qty","Price","Amount");
     printf("\n\t--------------------------------------------------------------------------------\n");
 
-    for(i=0;i<c;i++) {
+    for(i=0;i<c;i++) { //loop to print the items entered during billing
         amt = s[i].qty * s[i].b;
         total = total + amt;
         printf("\t %-19d%-21s%-10d%-21d%d\n", s[i].a, s[i].name, s[i].qty, s[i].b, amt);
     }
     printf("\n\t--------------------------------------------------------------------------------\n");
     if(y == 1){
-        printf("\t SGST:(@%f Perct.)%55f", sgst, amt * (sgst/100));
-        printf("\n\t CGST:(@%f Perct.)%55f", cgst, amt * (cgst/100));
-        printf("\n\t TOTAL PAYBLE AMOUNT:%59f", total = total + (total * (tgst/100)));
+        printf("\t SGST:(@%0.2f Perct.)%56.2f", sgst, amt * (sgst/100));
+        printf("\n\t CGST:(@%0.2f Perct.)%56.2f", cgst, amt * (cgst/100));
+        printf("\n\t TOTAL PAYBLE AMOUNT:%57.2f", total = total + (total * (tgst/100)));
     } else {
-        printf("\n\t IGST:(@%f Perct.)%55f", igst, amt * (igst/100));
-        printf("\n\t TOTAL PAYBLE AMOUNT:%59f", total = total + (total * (igst/100)));
+        printf("\n\t IGST:(@%0.2f Perct.)%56.2f", igst, amt * (igst/100));
+        printf("\n\t TOTAL PAYBLE AMOUNT:%57.2f", total = total + (total * (igst/100)));
     }
 }
